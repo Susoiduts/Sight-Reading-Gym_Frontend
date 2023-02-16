@@ -16,7 +16,7 @@ function Navbar() {
       <AppBar position="static" style={{ backgroundColor: '#333333' }}>
         <Toolbar>
           <Typography variant="h6" style={{ flexGrow: 1 }}>
-            My App
+            Sight-Singing-Gym
           </Typography>
           <Tabs value={value} onChange={handleChange} textColor="inherit">
             <Tab label="Home" />
