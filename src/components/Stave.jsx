@@ -3,8 +3,9 @@ import React, { useEffect, useState } from "react";
 
 function Stave() {
   const [diselectedNotes, setDiselectedNotes] = useState([]);
-
-  const testArray = [1, 2];
+  const [notePosition, setNotePosition] = useState(null);
+  let noteElement = document.querySelector(`#paper .abcjs-n${notePosition}`);
+  console.log(noteElement)
 
   let keySignature = "C";
   let abcString =
@@ -18,40 +19,47 @@ function Stave() {
     drag,
     mouseEvent
   ) {
-    changeNoteColor(testArray);
+    setNotePosition(abcelem.abselem.counters.note);
     handleNoteDiselection(abcelem.abselem.counters.note);
   }
 
-  function handleNoteDiselection(position) {
+  function handleNoteDiselection(notePosition) {
     setDiselectedNotes((prev) => {
-      if (prev.includes(position)) {
+      if (prev.includes(notePosition)) {
         // If the note is already in the array, remove it
-        return prev.filter((ele) => ele !== position);
+        const newArray = prev.filter((ele) => ele !== notePosition);
+        changeNoteColor(notePosition, 'black');
+        return newArray;
       } else {
         // If the note is not in the array, add it
-        return [...prev, position];
+        const newArray = [...prev, notePosition];
+        changeNoteColor(notePosition, 'red');
+        return newArray;
       }
     });
   }
 
-  function changeNoteColor(notesArray) {
-    const staveElement = document.getElementById('paper').firstChild.g;
-    notesArray.forEach((note) => {
-      const noteClass = `abcjs-n${note}`;
-      console.log(staveElement.g.noteClass.style)
-      staveElement.noteClass.style.fill = 'red';
-  });
+  function changeNoteColor(notePosition, color) {
+    noteElement = document.querySelector(
+      `#paper .abcjs-n${notePosition}`
+    );
+    console.log(noteElement);
+    noteElement.style.fill = color;
+    //noteElement.style.fill= 'red';
+    //noteElement.style.fill === 'red'? noteElement.style.fill = 'black' : noteElement.style.fill = 'red';
   }
+  console.log(notePosition);
+  console.log(noteElement? noteElement.style.fill : 'no note');
 
   useEffect(() => {
-      ABCJS.renderAbc(
-        "paper",
-        abcString,
-        { clickListener: clickListener },
-        { add_classes: true },
-        { selectionColor: "black" }
+    ABCJS.renderAbc(
+      "paper",
+      abcString,
+      { clickListener: clickListener },
+      { add_classes: true },
+      { selectionColor: "black" }
     );
-  }, [abcString, diselectedNotes]);
+  }, [abcString]);
 
   return (
     <>
