@@ -34,12 +34,12 @@ function StaveConfigurator({ setGeneratedAbcString }) {
       if (prev.includes(notePosition)) {
         // If the note is already in the array, remove it
         const newArray = prev.filter((ele) => ele !== notePosition);
-        changeNoteColor(notePosition, "black");
+        changeNoteColor(notePosition, 1);
         return newArray;
       } else {
         // If the note is not in the array, add it
         const newArray = [...prev, notePosition];
-        changeNoteColor(notePosition, "red");
+        changeNoteColor(notePosition, 0.4);
         return newArray;
       }
     });
@@ -49,7 +49,7 @@ function StaveConfigurator({ setGeneratedAbcString }) {
     let noteElement = document.querySelector(
       `#selectionStave .abcjs-n${notePosition}`
     );
-    noteElement.style.fill = color;
+    noteElement.style.opacity = color;
   }
 
   return (
