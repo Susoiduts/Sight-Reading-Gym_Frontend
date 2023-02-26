@@ -27,7 +27,7 @@ export function abcNoteToMidi(note) {
     let pitchClass = pitchClassNotCapitalized.toUpperCase();
     let octaveNum = 4; // default to middle C's octave number
     
-    for (let i = 1; i < note.length; i++) {
+    for (let i = 0; i < note.length; i++) {
       const char = note[i];
       
       if (char === "'") {

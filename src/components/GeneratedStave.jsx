@@ -1,6 +1,7 @@
 import React from "react";
 import ABCJS from "abcjs";
 import { useEffect } from "react";
+import { abcNoteToMidi } from "../js/abcNoteToMidi";
 
 function GeneratedStave({ generatedAbcString }) {
   //TODO: needs to be initialised after user interaction
@@ -18,14 +19,18 @@ function GeneratedStave({ generatedAbcString }) {
   function clickListener(abcelem) {
     let lastClicked = abcelem;
     if (!lastClicked) return;
-    console.log(lastClicked);
 
     //convert abc notation to midi pitch
-    let pitch = lastClicked.abselem.pitch;
+    let pitch = abcNoteToMidi(lastClicked.pitches[0].name);
+
+    //set duration
+    let duration = lastClicked.duration;
 
     // play a 'C' note
     ABCJS.synth
-      .playEvent([{ pitch: 21, volume: 105, duration: 0.125, instrument: 0 }])
+      .playEvent([
+        { pitch: pitch, volume: 105, duration: duration, instrument: 0 },
+      ])
       .then(function (response) {
         console.log("note played");
       })
