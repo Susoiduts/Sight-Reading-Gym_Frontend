@@ -5,7 +5,7 @@ import Slider from "@mui/material/Slider";
 function DroneButton() {
   const [buttonText, setButtonText] = useState("Play Drone");
   const audioRef = useRef(null);
-  const [volume, setVolume] = useState(0.22);
+  const [volume, setVolume] = useState(0.23);
 
   const handleButtonClick = () => {
     let audio = audioRef.current;
@@ -27,20 +27,22 @@ function DroneButton() {
   };
 
   return (
-    <>
-      <Button variant="contained" onClick={handleButtonClick}>
+    <div style={{display: "flex", flexDirection: "column", alignElements: "center", justifyContent: "center"}}>
+      <Button style={{margin: "auto"}} variant="contained" onClick={handleButtonClick}>
         {buttonText}
       </Button>
       <audio id="selectedDrone" ref={audioRef} src="/audio/C.mp3"></audio>
       <Slider
+        style={{margin: "auto"}}
         value={volume}
         onChange={handleVolumeChange}
         min={0}
         max={1}
         step={0.01}
         aria-label="Volume"
+        sx={{ width: "200px" }} // set custom width
       />
-    </>
+    </div>
   );
 }
 
