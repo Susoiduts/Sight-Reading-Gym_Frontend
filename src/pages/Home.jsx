@@ -11,7 +11,7 @@ function Home() {
 
 
   return (
-    <div>
+    <div style={{width: "50%", margin: "0 auto", textAlign: 'center'}}>
       <h1>Welcome to the Sight-Sing-Gym</h1>
       <StaveConfigurator setGeneratedAbcString={setGeneratedAbcString} />
       <GeneratedStave generatedAbcString={generatedAbcString} />
