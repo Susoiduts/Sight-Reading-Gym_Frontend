@@ -4,7 +4,7 @@ import { abcNoteToMidi } from "../js/abcNoteToMidi";
 import Slider from "@mui/material/Slider";
 
 function GeneratedStave({ generatedAbcString }) {
-  const [volume, setVolume] = useState(1);
+  const [volume, setVolume] = useState(0.5);
 
   useEffect(() => {
     ABCJS.renderAbc(
@@ -30,7 +30,7 @@ function GeneratedStave({ generatedAbcString }) {
     //set duration
     console.log("Volume value when clicked", volume);
     let duration = 0.4;
-    let newVolume = Math.ceil(volume * 127);
+    let newVolume = Math.ceil(volume * 250);
     console.log("NewCalculated Volume", newVolume);
 
     // play a note

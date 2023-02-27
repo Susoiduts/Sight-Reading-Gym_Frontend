@@ -2,35 +2,36 @@ import React from "react";
 import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
+import Box from '@mui/material/Box';
 import { Link } from 'react-router-dom';
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 
 function Course() {
   return (
-    <Grid container spacing={3}>
-      <Grid item xs={12} md={4}>
-        <Card component={Link} to="/course/1"> {/* Make the Card clickable using the Link component */}
-          <CardContent>
-            Master the MajorScale
-          </CardContent>
-        </Card>
-      </Grid>
-      <Grid item xs={12} md={4}>
-        <Card style={{ opacity: 0.5 }}>
-          <CardContent>
-            Upside Down
-          </CardContent>
-        </Card>
-      </Grid>
-      <Grid item xs={12} md={4}>
-        <Card style={{ opacity: 0.5 }}>
-          <CardContent>
-            Become the chromatic Champion
-          </CardContent>
-        </Card>
-      </Grid>
-    </Grid>
+    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', '& > *': { width: 300, marginBottom: 3, marginTop: 3 } }}>
+      <Card sx={{ textDecoration: 'none' }} component={Link} to="/course/1">
+        <CardContent sx={{ textAlign: 'center' }}>
+          Master the Majorscale
+        </CardContent>
+      </Card>
+      <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+        <ArrowDownwardIcon sx={{ fontSize: 60, opacity: 0.5 }} />
+      </Box>
+      <Card style={{ opacity: 0.5 }}>
+        <CardContent sx={{ textAlign: 'center' }}>
+          Upside Down
+        </CardContent>
+      </Card>
+      <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+        <ArrowDownwardIcon sx={{ fontSize: 60, opacity: 0.5 }} />
+      </Box>
+      <Card style={{ opacity: 0.5 }}>
+        <CardContent sx={{ textAlign: 'center' }}>
+          Become the Chromatic Champion
+        </CardContent>
+      </Card>
+    </Box>
   );
 }
-
 
 export default Course;

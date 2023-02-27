@@ -5,13 +5,13 @@ import Slider from "@mui/material/Slider";
 function DroneButton() {
   const [buttonText, setButtonText] = useState("Play Drone");
   const audioRef = useRef(null);
-  const [volume, setVolume] = useState(0.23);
+  const [volume, setVolume] = useState(0.5);
 
   const handleButtonClick = () => {
     let audio = audioRef.current;
     if (audio.paused) {
       audio.loop = true; // enable infinite loop
-      audio.volume = volume;
+      audio.volume = volume/2;
       audio.play();
       setButtonText("Pause Drone");
     } else {

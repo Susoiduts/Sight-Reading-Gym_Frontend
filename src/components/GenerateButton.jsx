@@ -13,7 +13,7 @@ function GenerateButton({
   };
 
   function compileAbcStringFromSelectedNotes(selectedNotesArray) {
-    let abcString = `X:1\nM:4/4\nL:1/4\nK:${selectedKeySignature}\n^C`;
+    let abcString = `X:1\nM:4/4\nL:1/4\nK:${selectedKeySignature}\n`;
     let notationToBeAdded = "";
 
     // create notationto be added for four bars
