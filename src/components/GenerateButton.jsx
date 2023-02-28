@@ -52,6 +52,7 @@ function GenerateButton({
     return generatedAbcString;
   }
   useEffect(() => {
+    //Generate Exercise on page load
     handleButtonClick();
   }, []);
 
