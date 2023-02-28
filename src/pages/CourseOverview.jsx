@@ -32,7 +32,11 @@ function CourseOverview() {
           Master the Majorscale
         </CardContent>
       </Card>
-      <Grid container spacing={3}>
+      <Grid        sx={{
+          display: "flex",
+          justifyContent: "center",
+        }}
+container spacing={3}>
         {cards.map((num) => (
           <Grid key={num} item>
             <Card
