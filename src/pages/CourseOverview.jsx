@@ -1,67 +1,78 @@
 import React from "react";
-import Box from '@mui/material/Box';
-import { Link } from 'react-router-dom';
-import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
-import { Container, Grid, Card, CardContent } from '@mui/material';
-import { useState, useEffect } from 'react';
+import Box from "@mui/material/Box";
+import { Link } from "react-router-dom";
+import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
+import { Container, Grid, Card, CardContent } from "@mui/material";
+import { useState, useEffect } from "react";
 
-function CourseOverview() {
-  const [activeCards, setActiveCards] = useState([1]);
+function CourseOverview({unlockedExercises}) {
+  // const [unlockedExercises, setUnlockedExercises] = useState([1]);
 
   useEffect(() => {
-    const cards = document.querySelectorAll('.card');
-    cards.forEach(card => {
-      const position = parseInt(card.getAttribute('data-position'));
-      if (activeCards.includes(position)) {
-        card.style.opacity = '1';
+    const cards = document.querySelectorAll(".card");
+    cards.forEach((card) => {
+      const position = parseInt(card.getAttribute("data-position"));
+      if (unlockedExercises.includes(position)) {
+        card.style.opacity = "1";
       } else {
-        card.style.opacity = '0.5';
+        card.style.opacity = "0.5";
       }
     });
-  }, [activeCards]);
+  }, [unlockedExercises]);
 
   const cards = [1, 2, 3, 4, 5, 6, 7, 8];
 
-  const handleClick = (position) => {
-
-  };
+  const handleClick = (position) => {};
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', '& > *': { width: 300, marginBottom: 3, marginTop: 3 } }}>
-      <Card sx={{ textDecoration: 'none' }} component={Link} to="/Overview/1">
-        <CardContent sx={{ textAlign: 'center' }}>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        "& > *": { width: 300, marginBottom: 3, marginTop: 3 },
+      }}
+    >
+      <Card sx={{ textDecoration: "none" }} component={Link} to="/Overview/1">
+        <CardContent sx={{ textAlign: "center" }}>
           Master the Majorscale
         </CardContent>
       </Card>
-      <Grid        sx={{
+      <Grid
+        sx={{
           display: "flex",
           justifyContent: "center",
         }}
-container spacing={3}>
+        container
+        spacing={3}
+      >
         {cards.map((num) => (
           <Grid key={num} item>
             <Card
+              sx={{ textDecoration: "none" }} //TODO: Elevation of card
               className="card"
               data-position={num}
-              onClick={() => handleClick(num)}
+              component={Link}
+              to={`/course/${num}`}
+              disabled={!unlockedExercises.includes(num)}
+              onClick={(e) => !unlockedExercises.includes(num) && e.preventDefault()}
             >
               <CardContent>{num}</CardContent>
             </Card>
           </Grid>
         ))}
       </Grid>
-      <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+      <Box sx={{ display: "flex", justifyContent: "center" }}>
         <ArrowDownwardIcon sx={{ fontSize: 60, opacity: 0.5 }} />
       </Box>
       <Card style={{ opacity: 0.5 }}>
-        <CardContent sx={{ textAlign: 'center' }}>
-          Upside Down
-        </CardContent>
+        <CardContent sx={{ textAlign: "center" }}>Upside Down</CardContent>
       </Card>
-      <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+      <Box sx={{ display: "flex", justifyContent: "center" }}>
         <ArrowDownwardIcon sx={{ fontSize: 60, opacity: 0.5 }} />
       </Box>
       <Card style={{ opacity: 0.5 }}>
-        <CardContent sx={{ textAlign: 'center' }}>
+        <CardContent sx={{ textAlign: "center" }}>
           Become the Chromatic Champion
         </CardContent>
       </Card>

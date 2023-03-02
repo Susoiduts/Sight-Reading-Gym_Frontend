@@ -16,7 +16,7 @@ function GeneratedStave({ generatedAbcString }) {
   }, [generatedAbcString, volume]);
 
   const handleVolumeChange = (event, newValue) => {
-    console.log(newValue);
+
     setVolume(newValue);
   };
 
@@ -28,10 +28,10 @@ function GeneratedStave({ generatedAbcString }) {
     let pitch = abcNoteToMidi(lastClicked.pitches[0].name);
 
     //set duration
-    console.log("Volume value when clicked", volume);
+
     let duration = 0.4;
     let newVolume = Math.ceil(volume * 250);
-    console.log("NewCalculated Volume", newVolume);
+
 
     // play a note
     ABCJS.synth
@@ -46,7 +46,7 @@ function GeneratedStave({ generatedAbcString }) {
       });
   }
 
-  console.log(volume);
+
   return (
     <>
       <div id="excersiseStave"></div>
