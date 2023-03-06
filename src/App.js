@@ -49,7 +49,7 @@ function App() {
         <Route path="/course/:id" element={<CoursePage unlockedExercises={unlockedExercises} setUnlockedExercises={setUnlockedExercises} token={token}/>} />
         <Route path="/feedback" element={<Feedback />} />
         <Route path="/login" element={<Login loggedIn={loggedIn} setLoggedIn={setLoggedIn} setToken={setToken}/>} />
-        <Route path="/signup" element={<SignUp />} />
+        <Route path="/signup" element={<SignUp unlockedExercises={unlockedExercises}/>} />
         <Route path="*" element={<NotFound />} />
       </Routes>
 

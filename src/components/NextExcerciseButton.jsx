@@ -14,26 +14,28 @@ function NextExcerciseButton({ setUnlockedExercises, id, token }) {
       if (nextCourseId <= prev) {
         return prev;
       } else {
-        const level = nextCourseId;
-        fetch("https://ssg-backend.onrender.com/level", {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            'authtoken': `${token}`
-          },
-          body: JSON.stringify({ level }),
-        })
-          .then((response) => {
-            if (response.ok) {
-              console.log("Level updated successfully");
-              // Do something else here if needed
-            } else {
-              console.error("Failed to update level");
-            }
+        if (token) {
+          const level = nextCourseId;
+          fetch("https://ssg-backend.onrender.com/level", {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              authtoken: `${token}`,
+            },
+            body: JSON.stringify({ level }),
           })
-          .catch((error) => {
-            console.error("Error updating level:", error);
-          });
+            .then((response) => {
+              if (response.ok) {
+                console.log("Level updated successfully");
+                // Do something else here if needed
+              } else {
+                console.error("Failed to update level");
+              }
+            })
+            .catch((error) => {
+              console.error("Error updating level:", error);
+            });
+        }
         return nextCourseId;
       }
     });

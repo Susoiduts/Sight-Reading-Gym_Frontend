@@ -1,12 +1,12 @@
 import { useState } from "react";
 import axios from "axios";
 
-export default function SignUp() {
+export default function SignUp({unlockedExercises}) {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
-  const level = 1;
+  const level = unlockedExercises;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
