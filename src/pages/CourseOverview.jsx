@@ -12,7 +12,7 @@ function CourseOverview({unlockedExercises}) {
     const cards = document.querySelectorAll(".card");
     cards.forEach((card) => {
       const position = parseInt(card.getAttribute("data-position"));
-      if (unlockedExercises.includes(position)) {
+      if ((position <= unlockedExercises)) {
         card.style.opacity = "1";
       } else {
         card.style.opacity = "0.5";
@@ -54,8 +54,8 @@ function CourseOverview({unlockedExercises}) {
               data-position={num}
               component={Link}
               to={`/course/${num}`}
-              disabled={!unlockedExercises.includes(num)}
-              onClick={(e) => !unlockedExercises.includes(num) && e.preventDefault()}
+              disabled={!(num <= unlockedExercises)}
+              onClick={(e) => !(num <= unlockedExercises) && e.preventDefault()}
             >
               <CardContent>{num}</CardContent>
             </Card>

@@ -1,33 +1,44 @@
-import axios from "axios";
 import { useState } from "react";
+import axios from "axios";
 
-export default function Login({ setLoggedIn, loggedIn, setToken }) {
+export default function SignUp() {
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const level = 1;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:8080/auth/login", {
+      const res = await axios.post("http://localhost:8080/auth/signup", {
+        username,
         email,
         password,
+        level,
       });
-      console.log(res.data);
-      localStorage.setItem("authtoken", res.data);
-      setToken(() => res.data);
-      setLoggedIn(true);
+      console.log(res);
+      setMessage(res.data);
+      setUsername("");
+      setEmail("");
+      setPassword("");
     } catch (err) {
       console.log(err);
-      setMessage(err.response.data);
     }
   };
 
-  return loggedIn ? (
-    <div className="container">you are now logged in</div>
-  ) : (
+  return (
     <div className="container">
       <form onSubmit={handleSubmit}>
+        <label>
+          Username:
+          <input
+            type="text"
+            name="username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+        </label>
         <label>
           Email:
           <input
@@ -46,7 +57,7 @@ export default function Login({ setLoggedIn, loggedIn, setToken }) {
             onChange={(e) => setPassword(e.target.value)}
           />
         </label>
-        <button>log in</button>
+        <button type="submit">Sign Up</button>
       </form>
       {message && <p>{message}</p>}
     </div>

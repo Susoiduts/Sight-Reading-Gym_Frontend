@@ -5,7 +5,7 @@ import NextExcerciseButton from "../components/NextExcerciseButton";
 import { useParams } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 
-function CoursePage({unlockedExercises, setUnlockedExercises}) {
+function CoursePage({unlockedExercises, setUnlockedExercises, token}) {
   const {id} = useParams(); //TODO: pass as prop
   const selectedKeySignature = "C";
   const [abcString, setAbcString] = useState("");
@@ -60,13 +60,13 @@ function CoursePage({unlockedExercises, setUnlockedExercises}) {
 
   return ( //can I prevent a reload of the whole page / keep the state?
     <>
-    {unlockedExercises.includes(parseInt(id)) ? (
+    {(parseInt(id) <= unlockedExercises) ? (
     <div style={{width: "50%", margin: "0 auto", textAlign: 'center'}}>
       <h1>Master the Majorscale</h1>
       <p>Exercise {id}</p>
       <GeneratedStave generatedAbcString={abcString} />
       <DroneButton />
-      <NextExcerciseButton setUnlockedExercises={setUnlockedExercises} id={id}/>
+      <NextExcerciseButton setUnlockedExercises={setUnlockedExercises} id={id} token={token}/>
     </div>) : (<Navigate replace to="/course" />)} 
     </>
   );

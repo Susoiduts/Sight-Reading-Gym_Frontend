@@ -30,6 +30,7 @@ function Navbar() {
           <Tab label="Course" component={Link} to="/course" />
           <Tab label="Feedback" component={Link} to="/feedback" />
           <Tab label="Login" component={Link} to="/login" />
+          <Tab label="SignUp" component={Link} to="/signup" />
         </Tabs>
       </Toolbar>
       <audio ref={audioRef} src="/audio/sound.mp3" />
