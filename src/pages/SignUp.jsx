@@ -1,5 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
 
 export default function SignUp({unlockedExercises}) {
   const [username, setUsername] = useState("");
@@ -11,7 +13,7 @@ export default function SignUp({unlockedExercises}) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:8080/auth/signup", {
+      const res = await axios.post("https://ssg-backend.onrender.com/auth/signup", {
         username,
         email,
         password,
@@ -28,36 +30,39 @@ export default function SignUp({unlockedExercises}) {
   };
 
   return (
-    <div className="container">
+    <div className="container" style={{ textAlign: "center" }}>
       <form onSubmit={handleSubmit}>
-        <label>
-          Username:
-          <input
-            type="text"
-            name="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-        </label>
-        <label>
-          Email:
-          <input
-            type="text"
-            name="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </label>
-        <label>
-          Password:
-          <input
-            type="password"
-            name="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </label>
-        <button type="submit">Sign Up</button>
+        <TextField
+          label="Username"
+          variant="outlined"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          style={{ maxWidth: 300 }}
+          margin="normal"
+        />
+        <br />
+        <TextField
+          label="Email"
+          variant="outlined"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          style={{ maxWidth: 300 }}
+          margin="normal"
+        />
+        <br />
+        <TextField
+          label="Password"
+          variant="outlined"
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          style={{ maxWidth: 300 }}
+          margin="normal"
+        />
+        <br />
+        <Button type="submit" variant="contained" color="primary">
+          Sign Up
+        </Button>
       </form>
       {message && <p>{message}</p>}
     </div>
