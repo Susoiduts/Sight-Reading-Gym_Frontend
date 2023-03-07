@@ -40,13 +40,13 @@ function App() {
 
   return (
     <Router>
-      <Navbar />
-      <div>{unlockedExercises}</div>
+      <Navbar loggedIn={loggedIn} setLoggedIn={setLoggedIn} setToken={setToken}/>
+      {/* <div>{unlockedExercises}</div> */}
       <Routes>
         <Route path="/" element={<Navigate replace to="/home" />} />
         <Route path="/home" element={<Home />} />
         <Route path="/course" element={<CourseOverview unlockedExercises={unlockedExercises} />} />
-        <Route path="/course/:id" element={<CoursePage unlockedExercises={unlockedExercises} setUnlockedExercises={setUnlockedExercises} token={token}/>} />
+        <Route path="/course/:id" element={<CoursePage unlockedExercises={unlockedExercises} setUnlockedExercises={setUnlockedExercises} token={token} loggedIn={loggedIn}/>} />
         <Route path="/feedback" element={<Feedback />} />
         <Route path="/login" element={<Login loggedIn={loggedIn} setLoggedIn={setLoggedIn} setToken={setToken}/>} />
         <Route path="/signup" element={<SignUp unlockedExercises={unlockedExercises}/>} />

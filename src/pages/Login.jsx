@@ -9,7 +9,7 @@ export default function Login({ setLoggedIn, loggedIn, setToken }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:8080/auth/login", {
+      const res = await axios.post("https://ssg-backend.onrender.com/auth/login", {
         email,
         password,
       });

@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 
-function NextExcerciseButton({ setUnlockedExercises, id, token }) {
+function NextExcerciseButton({ setUnlockedExercises, id, token, unlockedExercises }) {
   const navigate = useNavigate();
-  const [buttonText, setButtonText] = useState("Next Excercise");
+  const [buttonText, setButtonText] = useState("Next Exercise");
+
   const handleButtonClick = () => {
-    const parsedId = parseInt(id);
-    const nextCourseId = parsedId + 1;
+    const nextCourseId = id + 1;
 
     //set unlocked exercises
     setUnlockedExercises((prev) => {
@@ -39,16 +39,21 @@ function NextExcerciseButton({ setUnlockedExercises, id, token }) {
         return nextCourseId;
       }
     });
-    //Navigate to next excercise
+
+    // Navigate to next exercise
     navigate(`/course/${nextCourseId}`);
   };
+
+  const handleBackClick = () => {
+    navigate(`/course/${id - 1}`);
+  };
+
   return (
-    //make Button next Button display depending on if there is a next excercise; add back button
     <div
       style={{
         display: "flex",
         flexDirection: "column",
-        alignElements: "center",
+        alignItems: "center",
         justifyContent: "center",
       }}
     >
@@ -56,9 +61,19 @@ function NextExcerciseButton({ setUnlockedExercises, id, token }) {
         style={{ margin: "auto" }}
         variant="contained"
         onClick={handleButtonClick}
+        disabled={id >= 8}
       >
         {buttonText}
       </Button>
+      {id > 1 && (
+        <Button
+          style={{ margin: "auto" }}
+          variant="contained"
+          onClick={handleBackClick}
+        >
+          Previous Excercise
+        </Button>
+      )}
     </div>
   );
 }
