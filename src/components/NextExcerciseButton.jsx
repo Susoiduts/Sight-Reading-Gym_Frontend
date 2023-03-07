@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 function NextExcerciseButton({ setUnlockedExercises, id, token, unlockedExercises }) {
   const navigate = useNavigate();
-  const [buttonText, setButtonText] = useState("Next Exercise");
+  const [buttonText, setButtonText] = useState("Next Excercise >");
 
   const handleButtonClick = () => {
     const nextCourseId = id + 1;
@@ -65,13 +65,14 @@ function NextExcerciseButton({ setUnlockedExercises, id, token, unlockedExercise
       >
         {buttonText}
       </Button>
+      <br />
       {id > 1 && (
         <Button
           style={{ margin: "auto" }}
           variant="contained"
           onClick={handleBackClick}
         >
-          Previous Excercise
+          {"< Previous Excercise"}
         </Button>
       )}
     </div>
