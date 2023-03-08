@@ -45,11 +45,11 @@ function App() {
       <Routes>
         <Route path="/" element={<Navigate replace to="/home" />} />
         <Route path="/home" element={<Home />} />
-        <Route path="/course" element={<CourseOverview unlockedExercises={unlockedExercises} />} />
+        <Route path="/course" element={<CourseOverview unlockedExercises={unlockedExercises} loggedIn={loggedIn} />} />
         <Route path="/course/:id" element={<CoursePage unlockedExercises={unlockedExercises} setUnlockedExercises={setUnlockedExercises} token={token} loggedIn={loggedIn}/>} />
         <Route path="/feedback" element={<Feedback />} />
-        <Route path="/login" element={<Login loggedIn={loggedIn} setLoggedIn={setLoggedIn} setToken={setToken}/>} />
-        <Route path="/signup" element={<SignUp unlockedExercises={unlockedExercises}/>} />
+        <Route path="/login" element={loggedIn ? <Navigate to="/course" replace /> : <Login loggedIn={loggedIn} setLoggedIn={setLoggedIn} setToken={setToken} />} />
+        <Route path="/signup" element={loggedIn ? <Navigate to="/home" replace /> : <SignUp unlockedExercises={unlockedExercises} />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
 

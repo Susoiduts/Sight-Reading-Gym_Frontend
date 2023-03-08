@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import ABCJS from "abcjs";
 import { abcNoteToMidi } from "../js/abcNoteToMidi";
 import Slider from "@mui/material/Slider";
+import { BorderStyle } from "@mui/icons-material";
 
 function GeneratedStave({ generatedAbcString }) {
   const [volume, setVolume] = useState(0.5);
@@ -11,12 +12,13 @@ function GeneratedStave({ generatedAbcString }) {
       "excersiseStave",
       generatedAbcString,
       { clickListener: clickListener },
-      { selectionColor: "black" }
+      { selectionColor: "black" },
+      { paddingbottom: 20 },
+      { paddingtop: 20 }
     );
   }, [generatedAbcString, volume]);
 
   const handleVolumeChange = (event, newValue) => {
-
     setVolume(newValue);
   };
 
@@ -32,7 +34,6 @@ function GeneratedStave({ generatedAbcString }) {
     let duration = 0.4;
     let newVolume = Math.ceil(volume * 250);
 
-
     // play a note
     ABCJS.synth
       .playEvent([
@@ -46,10 +47,9 @@ function GeneratedStave({ generatedAbcString }) {
       });
   }
 
-
   return (
     <>
-      <div id="excersiseStave"></div>
+        <div id="excersiseStave"></div>
       <Slider
         value={volume}
         onChange={handleVolumeChange}

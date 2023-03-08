@@ -5,7 +5,7 @@ import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import { Container, Grid, Card, CardContent } from "@mui/material";
 import { useState, useEffect } from "react";
 
-function CourseOverview({unlockedExercises}) {
+function CourseOverview({unlockedExercises, loggedIn}) {
   // const [unlockedExercises, setUnlockedExercises] = useState([1]);
 
   useEffect(() => {
@@ -24,6 +24,12 @@ function CourseOverview({unlockedExercises}) {
 
   const handleClick = (position) => {};
   return (
+    <>
+    {loggedIn ? (
+  <div style={{textAlign: "center", marginTop: "20px"}}>
+    You are logged in. Go and get some practice!
+  </div>
+) : null}
     <Box
       sx={{
         display: "flex",
@@ -77,6 +83,7 @@ function CourseOverview({unlockedExercises}) {
         </CardContent>
       </Card>
     </Box>
+    </>
   );
 }
 
