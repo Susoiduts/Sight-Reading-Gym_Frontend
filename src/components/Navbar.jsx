@@ -5,16 +5,32 @@ import Typography from '@mui/material/Typography';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import { Link } from 'react-router-dom';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useEffect, useState } from 'react';
+
+
 
 function Navbar({loggedIn, setLoggedIn, setToken}) {
   const audioRef = React.useRef(null); // create a reference to the Audio element
   const navigate = useNavigate();
   
+  const location = useLocation();
+
+  const indexToTabName = {
+    home: 0,
+    course: 1,
+    feedback: 2,
+    login: 3,
+    signup: 4
+    
+  };
+  const [value, setValue] = useState(indexToTabName.hasOwnProperty(location.pathname.split('/')[1]) ? indexToTabName[location.pathname.split('/')[1]] : null);
+  
+  
   const handleClick = () => {
     audioRef.current.play(); // play the audio when the Typography is clicked
   }
-
+  
   const handleLogout = () => {
     localStorage.removeItem("authtoken");
     setToken("");
@@ -22,20 +38,22 @@ function Navbar({loggedIn, setLoggedIn, setToken}) {
     navigate("/home", { replace: true });
     window.location.reload();
   };
-  
-  const [value, setValue] = React.useState(0);
-  
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-  console.log(loggedIn)
+
+  useEffect(() => {
+    // set the value of the tab based on the current location
+    const newTabValue = (indexToTabName.hasOwnProperty(location.pathname.split('/')[1]) ? indexToTabName[location.pathname.split('/')[1]] : null);
+    setValue(newTabValue);
+    // execute on location change
+    // console.log('Location changed!', location.pathname);
+}, [location]);
+
   return (
     <AppBar position="static" style={{ backgroundColor: '#333333' }}>
       <Toolbar>
         <Typography variant="h6" style={{ flexGrow: 1 }} onClick={handleClick}>
           Sight-Sing-Gym
         </Typography>
-        <Tabs value={value} onChange={handleChange} textColor="inherit">
+        <Tabs value={value} textColor="inherit">
           <Tab label="Home" component={Link} to="/" />
           <Tab label="Course" component={Link} to="/course" />
           <Tab label="Feedback" component={Link} to="/feedback" />
