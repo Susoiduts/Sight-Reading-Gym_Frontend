@@ -1,19 +1,16 @@
-import React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import { Link } from 'react-router-dom';
+import React from "react";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import { Link } from "react-router-dom";
 import { useNavigate, useLocation } from "react-router-dom";
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
-
-
-function Navbar({loggedIn, setLoggedIn, setToken}) {
-  const audioRef = React.useRef(null); // create a reference to the Audio element
+function Navbar({ loggedIn, setLoggedIn, setToken }) {
+  const [isPlaying, setIsPlaying] = useState(false); // create state to track whether the audio is playing
   const navigate = useNavigate();
-  
   const location = useLocation();
 
   const indexToTabName = {
@@ -21,16 +18,19 @@ function Navbar({loggedIn, setLoggedIn, setToken}) {
     course: 1,
     feedback: 2,
     login: 3,
-    signup: 4
-    
+    signup: 4,
   };
-  const [value, setValue] = useState(indexToTabName.hasOwnProperty(location.pathname.split('/')[1]) ? indexToTabName[location.pathname.split('/')[1]] : null);
-  
-  
-  const handleClick = () => {
-    audioRef.current.play(); // play the audio when the Typography is clicked
-  }
-  
+
+  const [value, setValue] = useState(
+    indexToTabName.hasOwnProperty(location.pathname.split("/")[1])
+      ? indexToTabName[location.pathname.split("/")[1]]
+      : null
+  );
+
+  const clickHandler = () => {
+    navigate(`/acknowledgements`);
+  };
+
   const handleLogout = () => {
     localStorage.removeItem("authtoken");
     setToken("");
@@ -41,16 +41,20 @@ function Navbar({loggedIn, setLoggedIn, setToken}) {
 
   useEffect(() => {
     // set the value of the tab based on the current location
-    const newTabValue = (indexToTabName.hasOwnProperty(location.pathname.split('/')[1]) ? indexToTabName[location.pathname.split('/')[1]] : null);
+    const newTabValue = indexToTabName.hasOwnProperty(
+      location.pathname.split("/")[1]
+    )
+      ? indexToTabName[location.pathname.split("/")[1]]
+      : null;
     setValue(newTabValue);
     // execute on location change
     // console.log('Location changed!', location.pathname);
-}, [location]);
+  }, [location]);
 
   return (
-    <AppBar position="static" style={{ backgroundColor: '#333333' }}>
+    <AppBar position="static" style={{ backgroundColor: "#333333" }}>
       <Toolbar>
-        <Typography variant="h6" style={{ flexGrow: 1 }} onClick={handleClick}>
+        <Typography variant="h6" style={{ flexGrow: 1 }} onClick={clickHandler}>
           Sight-Sing-Gym
         </Typography>
         <Tabs value={value} textColor="inherit">
@@ -62,12 +66,9 @@ function Navbar({loggedIn, setLoggedIn, setToken}) {
           ) : (
             <Tab label="Login" component={Link} to="/login" />
           )}
-          {!loggedIn && (
-            <Tab label="SignUp" component={Link} to="/signup" />
-          )}
+          {!loggedIn && <Tab label="SignUp" component={Link} to="/signup" />}
         </Tabs>
       </Toolbar>
-      <audio ref={audioRef} src="/audio/sound.mp3" />
     </AppBar>
   );
 }
