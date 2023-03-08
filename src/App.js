@@ -13,6 +13,7 @@ import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 import CoursePage from "./pages/CoursePage";
 import SignUp from "./pages/SignUp";
+import Acknowledgements from "./pages/Acknowledgements";
 
 function App() {
   const [unlockedExercises, setUnlockedExercises] = useState(1);
@@ -45,6 +46,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Navigate replace to="/home" />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/acknowledgements" element={<Acknowledgements />} />
         <Route path="/course" element={<CourseOverview unlockedExercises={unlockedExercises} loggedIn={loggedIn} />} />
         <Route path="/course/:id" element={<CoursePage unlockedExercises={unlockedExercises} setUnlockedExercises={setUnlockedExercises} token={token} loggedIn={loggedIn}/>} />
         <Route path="/feedback" element={<Feedback />} />
