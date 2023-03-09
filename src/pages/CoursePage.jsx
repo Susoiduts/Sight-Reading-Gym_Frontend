@@ -66,7 +66,7 @@ function CoursePage({unlockedExercises, setUnlockedExercises, token, loggedIn}) 
       {!loggedIn && (<p style={{ color: 'red' }}>Log in to save your progress</p>)}
       <h1>Master the Majorscale</h1>
       <p>Exercise {id}</p>
-      <GeneratedStave generatedAbcString={abcString} />
+      <GeneratedStave generatedAbcString={abcString} selectedKeySignature={"C"}/>
       <DroneButton />
       <NextExcerciseButton setUnlockedExercises={setUnlockedExercises} id={id} token={token} unlockedExercises={unlockedExercises}/>
     </div>) : (<Navigate replace to="/course" />)} 

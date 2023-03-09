@@ -23,7 +23,7 @@ function Acknowledgements() {
 
   return (
     <div style={{ textAlign: "center", marginTop: "20px" }}>
-      <p style={{ fontSize: "20px", fontStyle: "italic" }}>Thank you!</p>
+      <p style={{ fontSize: "20px", fontStyle: "italic" }}>Thank you :{")"}</p>
       <p>
         Thanks a lot to Sarah - the best instructor you could wish for - and the
         whole WBS Coding School Team.

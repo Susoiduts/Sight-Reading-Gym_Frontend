@@ -4,7 +4,7 @@ import { abcNoteToMidi } from "../js/abcNoteToMidi";
 import Slider from "@mui/material/Slider";
 import { BorderStyle } from "@mui/icons-material";
 
-function GeneratedStave({ generatedAbcString }) {
+function GeneratedStave({ generatedAbcString, selectedKeySignature}) {
   const [volume, setVolume] = useState(0.5);
 
   useEffect(() => {
@@ -29,8 +29,9 @@ function GeneratedStave({ generatedAbcString }) {
     //convert abc notation to midi pitch
     let pitch = abcNoteToMidi(lastClicked.pitches[0].name);
 
-    //set duration
+    //create a mapping function which determines the right pitch depending on the key signature for all 12 notes
 
+    //set duration
     let duration = 0.4;
     let newVolume = Math.ceil(volume * 250);
 

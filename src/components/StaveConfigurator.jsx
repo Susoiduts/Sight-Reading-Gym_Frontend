@@ -1,13 +1,11 @@
 import ABCJS from "abcjs";
 import React, { useEffect, useState } from "react";
 import GenerateButton from "./GenerateButton";
+import { Select, MenuItem } from "@mui/material";
 
-function StaveConfigurator({ setGeneratedAbcString }) {
+function StaveConfigurator({ setGeneratedAbcString, selectedKeySignature, setSelectedKeySignature}) {
   const [diselectedNotes, setDiselectedNotes] = useState([]);
-  const [selectedKeySignature, setSelectedKeySignature] = "C";
-  const [abcStringConfigurator, setAbcStringConfigurator] = useState(
-    `X:1\nL:1/1\nM:\nK:C\nV:V:V1 clef=treble\nG,A,B,CDEFGABcdefgabc'`
-  );
+  const abcStringConfigurator = `X:1\nL:1/1\nM:\nK:${selectedKeySignature}\nV:V:V1 clef=treble\nG,A,B,CDEFGABcdefgabc'`;
 
   useEffect(() => {
     ABCJS.renderAbc(
@@ -17,7 +15,7 @@ function StaveConfigurator({ setGeneratedAbcString }) {
       { add_classes: true },
       { selectionColor: "black" }
     );
-  }, [abcStringConfigurator]);
+  }, [selectedKeySignature]);
 
   // handle key selection
   function handleKeySelection() {}
@@ -52,10 +50,34 @@ function StaveConfigurator({ setGeneratedAbcString }) {
     noteElement.style.opacity = color;
   }
 
+  function handleChange(event) {
+    setSelectedKeySignature(event.target.value);
+  }
+
   return (
     <>
-      <p>Selected Key: {selectedKeySignature}</p>
-      <p>Select/Diselect notes by clicking on them in the Configurator below</p>
+      <div>
+        Select a key:{" "}
+        <Select
+          label="Keysignature"
+          value={selectedKeySignature}
+          onChange={handleChange}
+        >
+          <MenuItem value={"C"}>C</MenuItem>
+          <MenuItem value={"Db"}>Db</MenuItem>
+          <MenuItem value={"D"}>D</MenuItem>
+          <MenuItem value={"Eb"}>Eb</MenuItem>
+          <MenuItem value={"E"}>E</MenuItem>
+          <MenuItem value={"F"}>F</MenuItem>
+          <MenuItem value={"F#"}>F#/Gb</MenuItem>
+          <MenuItem value={"G"}>G</MenuItem>
+          <MenuItem value={"Ab"}>Ab</MenuItem>
+          <MenuItem value={"A"}>A</MenuItem>
+          <MenuItem value={"Bb"}>Bb</MenuItem>
+          <MenuItem value={"B"}>B</MenuItem>
+        </Select>
+      </div>
+      <p>Select/Diselect notes by clicking on them in the stave below</p>
       <div id="selectionStave">Stave</div>
       <GenerateButton
         selectedKeySignature={selectedKeySignature}
@@ -63,7 +85,6 @@ function StaveConfigurator({ setGeneratedAbcString }) {
         setGeneratedAbcString={setGeneratedAbcString}
         diselectedNotes={diselectedNotes}
       />
-
     </>
   );
 }
