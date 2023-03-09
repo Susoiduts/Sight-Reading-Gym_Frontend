@@ -54,11 +54,11 @@ function GenerateButton({
   useEffect(() => {
     //Generate Exercise on page load
     handleButtonClick();
-  }, []);
+  }, [selectedKeySignature]);
 
   return (
     <Button variant="contained" onClick={handleButtonClick}>
-      Generate Exercise
+      Regenerate Exercise
     </Button>
   );
 }
