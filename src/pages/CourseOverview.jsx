@@ -2,8 +2,8 @@ import React from "react";
 import Box from "@mui/material/Box";
 import { Link } from "react-router-dom";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
-import { Container, Grid, Card, CardContent } from "@mui/material";
-import { useState, useEffect } from "react";
+import { Grid, Card, CardContent } from "@mui/material";
+import { useEffect } from "react";
 
 function CourseOverview({unlockedExercises, loggedIn}) {
   // const [unlockedExercises, setUnlockedExercises] = useState([1]);
