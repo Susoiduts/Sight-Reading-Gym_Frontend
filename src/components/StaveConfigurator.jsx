@@ -52,6 +52,7 @@ function StaveConfigurator({ setGeneratedAbcString, selectedKeySignature, setSel
 
   function handleChange(event) {
     setSelectedKeySignature(event.target.value);
+    setDiselectedNotes([]);
   }
 
   return (
