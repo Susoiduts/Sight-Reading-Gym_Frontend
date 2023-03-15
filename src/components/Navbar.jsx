@@ -28,7 +28,7 @@ function Navbar({ loggedIn, setLoggedIn, setToken }) {
   );
 
   const clickHandler = () => {
-    navigate(`/acknowledgements`);
+
   };
 
   const handleLogout = () => {
