@@ -27,7 +27,7 @@ function GeneratedStave({ generatedAbcString, selectedKeySignature}) {
     if (!lastClicked) return;
 
     //convert abc notation to midi pitch
-    let pitch = abcNoteToMidi(lastClicked.pitches[0].name);
+    let pitch = abcNoteToMidi(lastClicked.pitches[0].name, selectedKeySignature);
     console.log(pitch)
 
     //create a mapping function which determines the right pitch depending on the key signature for all 12 notes
