@@ -16,7 +16,7 @@ function Home() {
       <h1>Welcome to the Sight-Sing-Gym</h1>
       <StaveConfigurator setGeneratedAbcString={setGeneratedAbcString} selectedKeySignature={selectedKeySignature} setSelectedKeySignature={setSelectedKeySignature}/>
       <GeneratedStave generatedAbcString={generatedAbcString} selectedKeySignature={selectedKeySignature}/>
-      <DroneButton />
+      <DroneButton selectedKeySignature={selectedKeySignature}/>
     </div>
   );
 }

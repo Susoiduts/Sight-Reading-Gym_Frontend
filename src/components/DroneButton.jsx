@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import Button from "@mui/material/Button";
 import Slider from "@mui/material/Slider";
 
-function DroneButton() {
+function DroneButton({ selectedKeySignature }) {
   const [buttonText, setButtonText] = useState("Play Drone");
   const audioRef = useRef(null);
   const [volume, setVolume] = useState(0.5);
@@ -11,7 +11,7 @@ function DroneButton() {
     let audio = audioRef.current;
     if (audio.paused) {
       audio.loop = true; // enable infinite loop
-      audio.volume = volume/2;
+      audio.volume = volume / 2;
       audio.play();
       setButtonText("Pause Drone");
     } else {
@@ -26,14 +26,34 @@ function DroneButton() {
     audio.volume = newValue;
   };
 
+  function adjustForFSharp() {
+    if (selectedKeySignature === "F#") {
+      return "F%23";
+    } else {
+      return selectedKeySignature;
+    }
+  }
+  const audioSourceUrl = `/audio/${adjustForFSharp()}.mp3`;
+
   return (
-    <div style={{display: "flex", flexDirection: "column", alignElements: "center", justifyContent: "center"}}>
-      <Button style={{margin: "auto"}} variant="contained" onClick={handleButtonClick}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignElements: "center",
+        justifyContent: "center",
+      }}
+    >
+      <Button
+        style={{ margin: "auto" }}
+        variant="contained"
+        onClick={handleButtonClick}
+      >
         {buttonText}
       </Button>
-      <audio id="selectedDrone" ref={audioRef} src="/audio/C.mp3"></audio>
+      <audio id="selectedDrone" ref={audioRef} src={audioSourceUrl}></audio>
       <Slider
-        style={{margin: "auto"}}
+        style={{ margin: "auto" }}
         value={volume}
         onChange={handleVolumeChange}
         min={0}
