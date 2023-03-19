@@ -2,29 +2,61 @@ import ABCJS from "abcjs";
 import React, { useEffect, useState } from "react";
 import GenerateButton from "./GenerateButton";
 import { Select, MenuItem } from "@mui/material";
+import { computeAbcStringConfigurator } from "../js/computeAbcStringConfigurator";
+import ToggleButton from "@mui/material/ToggleButton";
+import Button from "@mui/material/Button";
 
-function StaveConfigurator({ setGeneratedAbcString, selectedKeySignature, setSelectedKeySignature}) {
+function StaveConfigurator({
+  setGeneratedAbcString,
+  selectedKeySignature,
+  setSelectedKeySignature,
+}) {
   const [diselectedNotes, setDiselectedNotes] = useState([]);
-  const abcStringConfigurator = `X:1\nL:1/1\nM:\nK:${selectedKeySignature}\nV:V:V1 clef=treble\nG,A,B,CDEFGABcdefgabc'`;
+  const [abcStringConfigurator, setAbcStringConfigurator] = useState(
+    `X:1\nL:1/1\nM:\nK:${selectedKeySignature}\nV:V:V1 clef=treble\nG,A,B,CDEFGABcdefgabc'`
+  );
+  const [chromatic, setChromatic] = useState(false);
 
   useEffect(() => {
+    const computedAbcStringConfigurator = computeAbcStringConfigurator(
+      chromatic,
+      selectedKeySignature
+    );
+    setAbcStringConfigurator(computedAbcStringConfigurator);
     ABCJS.renderAbc(
       "selectionStave",
-      abcStringConfigurator,
+      computedAbcStringConfigurator,
       { clickListener: clickListener },
       { add_classes: true },
       { selectionColor: "black" }
     );
-  }, [selectedKeySignature]);
-
-  // handle key selection
-  function handleKeySelection() {}
-
-  function adjustAbcStringConfigurator() {}
+  }, [selectedKeySignature, chromatic]);
 
   // handle note selection
   function clickListener(abcelem) {
     handleNoteDiselection(abcelem.abselem.counters.note);
+  }
+
+  //diselect all notes
+  function handleDeselectAll() {
+    //get tonematerial from abcStringConfigurator
+    const tonematerial = abcStringConfigurator.split("clef=treble\n")[1];
+    //count notes in tonematerial
+    const numberOfNotes = tonematerial.split(/(?=[A-G]),?|(?=[a-g])'?/).length;
+    //diselect all notes
+    for (let i = 0; i < numberOfNotes; i++) {
+      setDiselectedNotes((prev) => {
+        if (prev.includes(i)) {
+          // If the note is already in the array, return oldarray
+          return prev;
+        } else {
+          // If the note is not in the array, add it
+          const newArray = [...prev, i];
+          changeNoteColor(i, 0.4);
+          return newArray;
+        }
+      });
+    }
   }
 
   function handleNoteDiselection(notePosition) {
@@ -78,7 +110,19 @@ function StaveConfigurator({ setGeneratedAbcString, selectedKeySignature, setSel
           <MenuItem value={"B"}>B</MenuItem>
         </Select>
       </div>
+      <ToggleButton
+        value="check"
+        selected={chromatic}
+        onChange={() => {
+          setChromatic(!chromatic);
+        }}
+      >
+        chromatic
+      </ToggleButton>
       <p>Select/Diselect notes by clicking on them in the stave below</p>
+      <Button variant="outlined" size="medium" onClick={handleDeselectAll}>
+        diselect all notes
+      </Button>
       <div id="selectionStave">Stave</div>
       <GenerateButton
         selectedKeySignature={selectedKeySignature}
