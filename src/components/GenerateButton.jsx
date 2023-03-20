@@ -55,7 +55,7 @@ function GenerateButton({
   useEffect(() => {
     //Generate Exercise on page load
     handleButtonClick();
-  }, [selectedKeySignature]);
+  }, [selectedKeySignature, abcStringConfigurator]);
 
   return (
     <Button variant="contained" onClick={handleButtonClick}>
