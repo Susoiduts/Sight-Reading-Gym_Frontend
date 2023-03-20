@@ -38,7 +38,8 @@ function GenerateButton({
     const tonematerialString = abcStringConfigurator.split("clef=treble\n")[1];
 
     //split abcString into array of single note strings
-    const abcStringArray = tonematerialString.split(/(?=[A-G]),?|(?=[a-g])'?/);
+    const regex=/[_=^]*[A-Za-z][,']*/g;
+    const abcStringArray = tonematerialString.match(regex);
 
     //remove diselected notes from array
     const selectedNotesArray = abcStringArray.filter(

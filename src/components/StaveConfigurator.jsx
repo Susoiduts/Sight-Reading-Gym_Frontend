@@ -42,7 +42,8 @@ function StaveConfigurator({
     //get tonematerial from abcStringConfigurator
     const tonematerial = abcStringConfigurator.split("clef=treble\n")[1];
     //count notes in tonematerial
-    const numberOfNotes = tonematerial.split(/(?=[A-G]),?|(?=[a-g])'?/).length;
+    const regex=/[_=^]*[A-Za-z][,']*/g;
+    const numberOfNotes = tonematerial.match(regex).length;
     //diselect all notes
     for (let i = 0; i < numberOfNotes; i++) {
       setDiselectedNotes((prev) => {
